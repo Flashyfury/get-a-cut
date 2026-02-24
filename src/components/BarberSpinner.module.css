@@ -1,0 +1,42 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.spinner {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  border: 6px solid #e5e7eb;
+  border-top: 6px solid #ef4444;
+  border-right: 6px solid #3b82f6;
+  animation: spin 1.2s linear infinite;
+  position: relative;
+}
+
+.spinner::after {
+  content: "✂️";
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  animation: spinReverse 1.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinReverse {
+  to { transform: rotate(-360deg); }
+}
+
+.text {
+  font-weight: 600;
+  font-size: 14px;
+  color: #374151;
+}
