@@ -1,53 +1,57 @@
+/* ── Base ────────────────────────────────────────────── */
 .dashboard {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #0f0f0f, #111);
-  color: white;
-  font-family: "Poppins", sans-serif;
+  background: #0d0d0d;
+  color: #f9f9f9;
+  font-family: 'Inter', system-ui, sans-serif;
   overflow-x: hidden;
 }
 
-.dashboard {
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #0f0f0f, #111);
-  color: white;
-  font-family: "Poppins", sans-serif;
-  overflow-x: hidden;
+/* ── Loader ──────────────────────────────────────────── */
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  font-size: 1.1rem;
+  color: #f4a261;
+  background: #0d0d0d;
 }
 
-/* ================= NAVBAR ================= */
-
+/* ── Navbar ──────────────────────────────────────────── */
 .navbar {
   position: sticky;
   top: 0;
   z-index: 1000;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  padding: 18px 5%;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(18px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-
-  animation: fadeInNav 0.6s ease forwards;
+  padding: 16px 5%;
+  background: rgba(13, 13, 13, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  animation: fadeInNav 0.5s ease forwards;
 }
 
 @keyframes fadeInNav {
   from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 .logo {
-  font-weight: 700;
-  font-size: 1.4rem;
-  letter-spacing: 1px;
-  color: #f4a261;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
-/* NAV LINKS DESKTOP FIX */
+
 .navLinks {
   display: flex;
-  gap: 35px;
+  gap: 32px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -56,399 +60,305 @@
 
 .navLinks li {
   font-weight: 500;
+  font-size: 14px;
   cursor: pointer;
-  color: white;
-  transition: 0.3s;
+  color: #d1d5db;
+  transition: color 0.2s;
+  position: relative;
 }
 
-.navLinks li:hover {
-  color: #f4a261;
-}
+.navLinks li:hover { color: #f4a261; }
 
-/* Logout Button */
-.logoutBtn {
-  background: linear-gradient(45deg, #f4a261, #e76f51);
-  border: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s ease;
-}
-
-.logoutBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(244,162,97,0.4);
-}
-
-/* ================= HAMBURGER ================= */
-
-.hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  cursor: pointer;
-  z-index: 1200;
-}
-
-.hamburger span {
-  width: 26px;
-  height: 3px;
-  background: white;
-  border-radius: 3px;
-  transition: 0.4s ease;
-}
-
-.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
-
-.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
-
-/* ================= MOBILE MENU ================= */
-
-.mobileMenu {
-  position: absolute;
-  top: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  padding: 25px;
-
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(20px);
-  border-radius: 16px;
-
+.navRight {
   display: flex;
-  flex-direction: column;
-  gap: 18px;
-
-  animation: slideDown 0.3s ease forwards;
+  align-items: center;
+  gap: 10px;
 }
 
-.mobileMenu li {
-  list-style: none;
-  font-size: 18px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.mobileMenu li:hover {
-  color: #f4a261;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-/* ================= HERO ================= */
-
-.hero {
-  text-align: center;
-  padding: 100px 20px 60px;
-  background: radial-gradient(circle at top, #1a1a1a, #0f0f0f);
-}
-
-.hero h1 {
-  font-size: 2.8rem;
-  margin-bottom: 15px;
-  font-weight: 800;
-}
-
-.hero p {
-  opacity: 0.7;
-  font-size: 1.05rem;
-}
-
-/* ================= STATS ================= */
-
-.stats {
-  display: flex;
-  justify-content: center;
-  gap: 35px;
-  flex-wrap: wrap;
-  padding: 60px 5%;
-}
-
-.card {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(14px);
-  padding: 35px;
-  border-radius: 18px;
-  width: 240px;
-  text-align: center;
-  transition: 0.4s ease;
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  border-color: #f4a261;
-  box-shadow: 0 12px 35px rgba(244,162,97,0.35);
-}
-
-.card h3 {
-  font-size: 1rem;
-  margin-bottom: 18px;
-  opacity: 0.8;
-}
-
-.card p {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #f4a261;
-}
-
-/* ================= ACTIONS ================= */
-
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 50px;
-  flex-wrap: wrap;
-}
-
-.actions button {
-  padding: 14px 28px;
-  border-radius: 12px;
+/* ── Book Button ─────────────────────────────────────── */
+.bookBtn {
+  padding: 9px 20px;
+  border-radius: 10px;
   border: none;
   background: linear-gradient(135deg, #f4a261, #e76f51);
   color: white;
   font-weight: 600;
-  cursor: pointer;
-  transition: 0.3s ease;
+  font-size: 13px;
+  font-family: inherit;
+  box-shadow: 0 3px 14px rgba(244,162,97,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+.bookBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(244,162,97,0.45); }
 
-.actions button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(244,162,97,0.4);
-}
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 768px) {
-
-  .hamburger {
-    display: flex;
-  }
-
-  .stats {
-    gap: 20px;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-
-  .card {
-    width: 90%;
-  }
-}
-
-/* Logout Button */
+/* ── Logout Button ───────────────────────────────────── */
 .logoutBtn {
-  background: linear-gradient(45deg, #f4a261, #e76f51);
-  border: none;
-  padding: 8px 20px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s ease;
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: #9ca3af;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
-
 .logoutBtn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(244,162,97,0.4);
+  background: rgba(239,68,68,0.12);
+  color: #f87171;
+  border-color: rgba(239,68,68,0.3);
 }
 
-/* ================= HAMBURGER ================= */
-
+/* ── Hamburger ───────────────────────────────────────── */
 .hamburger {
   display: none;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
-  z-index: 1200;
 }
 
 .hamburger span {
-  width: 26px;
-  height: 3px;
-  background: white;
-  border-radius: 3px;
-  transition: 0.4s ease;
+  width: 24px;
+  height: 2px;
+  background: #d1d5db;
+  border-radius: 2px;
+  transition: 0.3s;
 }
 
-.active span:nth-child(1) {
-  transform: rotate(45deg) translateY(8px);
-}
+.active span:nth-child(1) { transform: rotate(45deg) translateY(7px); }
+.active span:nth-child(2) { opacity: 0; }
+.active span:nth-child(3) { transform: rotate(-45deg) translateY(-7px); }
 
-.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.active span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-8px);
-}
-
-/* ================= MOBILE MENU ================= */
-
+/* ── Mobile Menu ─────────────────────────────────────── */
 .mobileMenu {
   position: absolute;
-  top: 80px;
+  top: 72px;
   left: 50%;
   transform: translateX(-50%);
   width: 90%;
-  padding: 25px;
-
-  background: rgba(0, 0, 0, 0.95);
+  background: rgba(15,15,15,0.97);
   backdrop-filter: blur(20px);
   border-radius: 16px;
-
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-
-  animation: slideDown 0.3s ease forwards;
+  gap: 16px;
+  animation: slideDown 0.25s ease;
 }
 
 .mobileMenu li {
   list-style: none;
-  font-size: 18px;
+  font-size: 17px;
   cursor: pointer;
-  transition: 0.3s;
+  color: #d1d5db;
+  transition: color 0.2s;
 }
-
-.mobileMenu li:hover {
-  color: #f4a261;
-}
+.mobileMenu li:hover { color: #f4a261; }
 
 @keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
+  from { opacity: 0; transform: translate(-50%, -12px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
 }
 
-/* ================= HERO ================= */
-
+/* ── Hero ────────────────────────────────────────────── */
 .hero {
-  text-align: center;
-  padding: 100px 20px 60px;
-  background: radial-gradient(circle at top, #1a1a1a, #0f0f0f);
-}
-
-.hero h1 {
-  font-size: 2.8rem;
-  margin-bottom: 15px;
-  font-weight: 800;
-}
-
-.hero p {
-  opacity: 0.7;
-  font-size: 1.05rem;
-}
-
-/* ================= STATS ================= */
-
-.stats {
+  position: relative;
+  height: 92vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 35px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.6) 0%,
+    rgba(0,0,0,0.75) 60%,
+    rgba(13,13,13,1) 100%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+}
+
+.heroContent h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  margin-bottom: 12px;
+  letter-spacing: -0.03em;
+}
+
+.heroContent p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.65);
+}
+
+/* ── Shop Info ───────────────────────────────────────── */
+.shopInfo {
+  margin: 0 5%;
+  padding: 36px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  margin-bottom: 0;
+}
+
+.shopInfo h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffffff 30%, #f4a261 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shopMeta {
+  display: flex;
   flex-wrap: wrap;
-  padding: 60px 5%;
+  gap: 14px;
+}
+
+.metaChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px;
+  font-weight: 500;
+  color: #d1d5db;
+}
+
+/* ── Stats ───────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 40px 5%;
 }
 
 .card {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255,255,255,0.04);
   backdrop-filter: blur(14px);
-  padding: 35px;
+  padding: 30px;
   border-radius: 18px;
-  width: 240px;
   text-align: center;
-  transition: 0.4s ease;
-  border: 1px solid rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
 }
 
 .card:hover {
-  transform: translateY(-10px);
-  border-color: #f4a261;
-  box-shadow: 0 12px 35px rgba(244,162,97,0.35);
+  transform: translateY(-6px);
+  border-color: rgba(244,162,97,0.35);
+  box-shadow: 0 12px 32px rgba(244,162,97,0.15);
+}
+
+.cardIcon {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
 }
 
 .card h3 {
-  font-size: 1rem;
-  margin-bottom: 18px;
-  opacity: 0.8;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7280;
+  margin-bottom: 10px;
 }
 
 .card p {
-  font-size: 1.8rem;
-  font-weight: bold;
+  font-size: 2rem;
+  font-weight: 800;
   color: #f4a261;
 }
 
-/* ================= ACTIONS ================= */
+/* ── Setup Section ───────────────────────────────────── */
+.setupSection {
+  padding: 60px 5%;
+}
 
+.setupSection h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 28px;
+  background: linear-gradient(135deg, #ffffff 30%, #f4a261 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Actions ─────────────────────────────────────────── */
 .actions {
   display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 50px;
+  justify-content: flex-start;
+  gap: 14px;
+  padding: 30px 5% 60px;
   flex-wrap: wrap;
 }
 
 .actions button {
-  padding: 14px 28px;
+  padding: 13px 26px;
   border-radius: 12px;
-  border: none;
-  background: linear-gradient(135deg, #f4a261, #e76f51);
-  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #f9f9f9;
   font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 
 .actions button:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 30px rgba(244,162,97,0.4);
+  background: rgba(244,162,97,0.12);
+  border-color: rgba(244,162,97,0.35);
+  transform: translateY(-2px);
 }
 
-/* ================= RESPONSIVE ================= */
+.logoutBtnMain {
+  padding: 13px 26px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #f4a261, #e76f51) !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 14px;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 0 4px 18px rgba(244,162,97,0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.logoutBtnMain:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 26px rgba(244,162,97,0.45);
+  background: rgba(244,162,97,0.12) !important;
+  border-color: rgba(244,162,97,0.35) !important;
+}
 
+/* ── Responsive ─────────────────────────────────────── */
 @media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .navLinks { display: none; }
+  .navbar { position: relative; }
+  .stats { grid-template-columns: 1fr 1fr; }
+  .hero { height: 70vh; }
+}
 
-  .hamburger {
-    display: flex;
-  }
-
-  .stats {
-    gap: 20px;
-  }
-
-  .hero h1 {
-    font-size: 2.2rem;
-  }
-
-  .card {
-    width: 90%;
-  }
+@media (max-width: 480px) {
+  .stats { grid-template-columns: 1fr; }
+  .actions { flex-direction: column; }
+  .actions button { width: 100%; }
 }

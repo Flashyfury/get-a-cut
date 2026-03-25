@@ -13,16 +13,10 @@ export default function App() {
 
        
         <Route path="/" element={<Navigate to="/login" />} />
-
-        //auth
         <Route path="/login" element={<LoginCustomer />} />
         <Route path="/register" element={<Register />} />
-
-        //owner shop setup
         <Route path="/shop-setup" element={<ShopSetup />} />
-        //customer dashboard
         <Route path="/customer-dashboard" element={<CustomerDashboard />} />
-        //owner dashboard
         <Route path="/owner-dashboard" element={<OwnerDashboard />} />
 
       </Routes>

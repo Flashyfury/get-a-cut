@@ -1,22 +1,126 @@
-
-
+/* ── Base ────────────────────────────────────────────── */
 .dashboard {
   width: 100%;
   min-height: 100vh;
-  background-color: #0f0f0f;
-  color: white;
+  background-color: #0d0d0d;
+  color: #f9f9f9;
   overflow-x: hidden;
-  font-family: "Poppins", sans-serif;
   position: relative;
 }
 
+/* ── Navbar ──────────────────────────────────────────── */
+.navbar {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  max-width: 1200px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 32px;
+  border-radius: 18px;
+  background: rgba(13, 13, 13, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.09);
+  box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+  z-index: 1000;
+  animation: fadeInNav 0.6s ease forwards;
+}
 
+@keyframes fadeInNav {
+  from { opacity: 0; transform: translate(-50%, -16px); }
+  to   { opacity: 1; transform: translate(-50%, 0);     }
+}
 
+.logo {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
 
+.navLinks {
+  display: flex;
+  gap: 30px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navLinks li {
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  color: #d1d5db;
+  transition: color var(--transition, 0.25s);
+  position: relative;
+}
+
+.navLinks li:hover { color: #f4a261; }
+
+.navLinks li::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #f4a261;
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+.navLinks li:hover::after { width: 100%; }
+
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.greeting {
+  font-size: 13px;
+  color: #9ca3af;
+  font-weight: 500;
+}
+
+.bookBtn {
+  padding: 9px 20px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  color: white;
+  font-weight: 600;
+  font-size: 13px;
+  font-family: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 3px 14px rgba(244,162,97,0.3);
+}
+.bookBtn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(244,162,97,0.45); }
+
+.logoutBtn {
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #d1d5db;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+.logoutBtn:hover { background: rgba(239,68,68,0.15); color: #f87171; border-color: rgba(239,68,68,0.3); }
+
+/* ── Hero ────────────────────────────────────────────── */
 .hero {
   position: relative;
   height: 100vh;
-  width: 100%;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -25,301 +129,247 @@
   justify-content: center;
 }
 
-
 .heroOverlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0.75),
-    rgba(0, 0, 0, 0.85)
+    rgba(0,0,0,0.65) 0%,
+    rgba(0,0,0,0.80) 60%,
+    rgba(13,13,13,1)  100%
   );
   z-index: 1;
 }
-
-
 
 .heroContent {
   position: relative;
   z-index: 2;
   text-align: center;
-  max-width: 700px;
+  max-width: 720px;
   padding: 20px;
-  animation: fadeUp 1.2s ease forwards;
+  animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .heroContent h1 {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.2;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
 }
 
 .heroContent span {
-  color: #f4a261;
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .heroContent p {
   margin-top: 20px;
-  font-size: 1.1rem;
-  opacity: 0.85;
+  font-size: 1.15rem;
+  color: rgba(255,255,255,0.7);
+  font-weight: 400;
 }
 
-.heroContent button {
-  margin-top: 30px;
-  padding: 14px 32px;
-  border-radius: 8px;
+.ctaBtn {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 15px 36px;
+  border-radius: 12px;
   border: none;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
   background: linear-gradient(135deg, #f4a261, #e76f51);
   color: white;
-  transition: 0.3s;
-}
-
-.heroContent button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(244, 162, 97, 0.5);
-}
-
-
-
-
-.navbar {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 90%;
-  max-width: 1200px;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  padding: 16px 40px;
-  border-radius: 16px;
-
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
-
-  z-index: 1000;
-  animation: fadeInNav 0.8s ease forwards;
-}
-
-
-.logo {
-  font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: 2px;
-  color: #f4a261;
-}
-
-
-.navLinks {
-  display: flex;
-  gap: 35px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navLinks li {
-  font-weight: 500;
+  font-size: 1rem;
+  font-family: inherit;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 30px rgba(244,162,97,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
   cursor: pointer;
-  transition: 0.3s ease;
-  color: #ffffff;
-  position: relative;
 }
-
-.navLinks li:hover {
-  color: #f4a261;
-}
-
-
-.navLinks li::after {
-  content: "";
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 0%;
-  height: 2px;
-  background: #f4a261;
-  transition: 0.3s;
-}
-
-.navLinks li:hover::after {
-  width: 100%;
-}
-
-
-.bookBtn {
-  padding: 10px 22px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-
-  background: linear-gradient(135deg, #f4a261, #e76f51);
-  color: white;
-  font-weight: 600;
-  transition: 0.3s;
-}
-
-.bookBtn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(244, 162, 97, 0.4);
-}
-
-
-
+.ctaBtn:hover { transform: translateY(-3px); box-shadow: 0 12px 38px rgba(244,162,97,0.55); }
 
 @keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(40px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0);    }
 }
 
-@keyframes fadeInNav {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -20px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-}
-
-
-
-
-@media (max-width: 1024px) {
-  .heroContent h1 {
-    font-size: 2.8rem;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .navbar {
-    padding: 12px 20px;
-  }
-
-  .navLinks {
-    display: none; /* you can later add hamburger menu */
-  }
-
-  .heroContent h1 {
-    font-size: 2.2rem;
-  }
-
-  .heroContent p {
-    font-size: 1rem;
-  }
-}
-
-@media (max-width: 480px) {
-
-  .heroContent h1 {
-    font-size: 1.8rem;
-  }
-
-  .heroContent button {
-    width: 100%;
-  }
-}
-.features {
-  background: #111;
-  padding: 100px 5%;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-}
-
-.featureCard {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 16px;
-  padding: 40px 30px;
-  width: 320px;
-  text-align: center;
-  transition: 0.4s ease;
-  cursor: pointer;
-}
-
-.featureCard:hover {
-  transform: translateY(-10px);
-  border-color: #f4a261;
-  box-shadow: 0 10px 30px rgba(244, 162, 97, 0.3);
-}
-
-.featureIcon {
-  font-size: 2rem;
-  margin-bottom: 20px;
-}
-
-.featureCard h3 {
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-}
-
-.featureCard p {
-  font-size: 0.95rem;
-  opacity: 0.75;
-}
-.footer {
+/* ── Map Section ─────────────────────────────────────── */
+.mapSection {
+  padding: 90px 6%;
   background: #0d0d0d;
-  padding: 60px 5%;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mapTitle {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 30%, #f4a261 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.mapSubtitle {
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.95rem;
+  margin-bottom: 44px;
+}
+
+.mapContainer {
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+/* ── My Bookings Section ─────────────────────────────── */
+.myBookings {
+  padding: 80px 6%;
+  background: #0f0f0f;
+}
+
+.myBookings h2 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.sectionSubtitle {
+  color: #6b7280;
+  margin-bottom: 36px;
+  font-size: 0.95rem;
+}
+
+.bookingsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.bookingCard {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 24px;
+  transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+}
+.bookingCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(244,162,97,0.3);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.bookingCard h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  color: #f9f9f9;
+}
+
+.bookingShopIcon {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.statusLabel {
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.badgeAccepted {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34,197,94,0.25);
+}
+
+.badgePending {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  background: rgba(244,162,97,0.15);
+  color: #f4a261;
+  border: 1px solid rgba(244,162,97,0.25);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 60px 20px;
+  color: #4b5563;
+}
+.emptyState .emptyIcon { font-size: 3rem; margin-bottom: 12px; }
+.emptyState p { font-size: 1rem; }
+
+/* ── Footer ──────────────────────────────────────────── */
+.footer {
+  background: #0a0a0a;
+  padding: 60px 6%;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .footerContent {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 40px;
-  color: #aaa;
+  gap: 20px;
 }
 
 .footerContent h3 {
-  color: #f4a261;
-  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 6px;
 }
 
-.footerLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+.footerContent p {
+  color: #4b5563;
+  font-size: 13px;
+  margin: 0;
 }
 
-.footerLinks a {
-  text-decoration: none;
-  color: #aaa;
-  transition: 0.3s;
+/* ── Animations ─────────────────────────────────────── */
+@keyframes fadeInNav {
+  from { opacity: 0; transform: translate(-50%, -16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
 }
 
-.footerLinks a:hover {
-  color: #f4a261;
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .navbar { padding: 12px 18px; top: 12px; }
+  .navLinks { display: none; }
+  .greeting { display: none; }
+  .bookingsGrid { grid-template-columns: 1fr; }
 }
-.mapSection {
-    padding: 80px 10%;
-    background: #111;
 
-}
-.mapTitle {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 32px;
-  color: #ff9800;
+@media (max-width: 480px) {
+  .heroContent h1 { font-size: 2rem; }
+  .ctaBtn { width: 100%; text-align: center; }
+  .mapSection, .myBookings { padding: 60px 4%; }
 }

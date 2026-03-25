@@ -1,77 +1,149 @@
+/* ── Wrapper ─────────────────────────────────────────── */
 .wrapper {
   min-height: 100vh;
-  background: linear-gradient(135deg, #111, #1c1c1c);
   display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 40px;
+  justify-content: center;
+  padding: 40px 20px;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(244,162,97,0.15) 0%, transparent 70%),
+              linear-gradient(160deg, #0d0d0d 0%, #0f0f0f 100%);
 }
 
+/* ── Card ───────────────────────────────────────────── */
 .card {
   width: 100%;
-  max-width: 500px;
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(15px);
-  border-radius: 20px;
-  padding: 40px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  color: white;
+  max-width: 520px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.09);
+  padding: 48px 44px;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.55),
+              inset 0 1px 0 rgba(255,255,255,0.07);
+  color: #f9f9f9;
+  animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
+@keyframes cardPop {
+  from { opacity: 0; transform: translateY(24px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+/* ── Title ──────────────────────────────────────────── */
 .card h2 {
-  margin-bottom: 25px;
+  margin-bottom: 28px;
   text-align: center;
-  color: #ff9800;
+  font-size: 1.65rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 30%, #f4a261 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
+/* ── Section label ──────────────────────────────────── */
+.sectionLabel {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f4a261;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+/* ── Inputs ─────────────────────────────────────────── */
 .card input {
   width: 100%;
-  padding: 12px 15px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  border: none;
+  padding: 13px 16px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #f9f9f9;
+  font-size: 15px;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.card input::placeholder { color: #6b7280; }
+
+.card input:focus {
   outline: none;
-  background: rgba(255,255,255,0.1);
-  color: white;
+  border-color: #f4a261;
+  box-shadow: 0 0 0 3px rgba(244,162,97,0.18);
 }
 
-.card input::placeholder {
-  color: #bbb;
+/* ── Two-column layout ──────────────────────────────── */
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
+/* ── Address fields ─────────────────────────────────── */
+.coordsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+/* ── Location buttons ───────────────────────────────── */
 .locationBtns {
   display: flex;
   gap: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 
 .locationBtns button {
   flex: 1;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
+  padding: 11px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
   cursor: pointer;
-  background: #444;
-  color: white;
-  transition: 0.3s;
+  background: rgba(255,255,255,0.06);
+  color: #f9f9f9;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: inherit;
+  transition: background 0.2s, border-color 0.2s, transform 0.2s;
 }
 
 .locationBtns button:hover {
-  background: #ff9800;
+  background: rgba(244,162,97,0.12);
+  border-color: #f4a261;
+  transform: translateY(-1px);
 }
 
+/* ── Save button ─────────────────────────────────────── */
 .saveBtn {
   width: 100%;
-  padding: 12px;
+  padding: 14px;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(90deg, #ff9800, #ff5722);
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   color: white;
-  font-weight: bold;
+  font-weight: 700;
+  font-size: 15px;
+  font-family: inherit;
   cursor: pointer;
-  transition: 0.3s;
+  letter-spacing: 0.02em;
+  box-shadow: 0 4px 20px rgba(244,162,97,0.3);
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
 }
 
 .saveBtn:hover {
   transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(244,162,97,0.45);
+}
+.saveBtn:active { transform: translateY(0); }
+.saveBtn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 560px) {
+  .card { padding: 36px 24px; border-radius: 18px; }
+  .row, .coordsRow { grid-template-columns: 1fr; gap: 0; }
+  .locationBtns { flex-direction: column; }
 }

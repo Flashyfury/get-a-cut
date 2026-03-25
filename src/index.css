@@ -1,4 +1,24 @@
-* {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ── Design Tokens ─────────────────────────────── */
+:root {
+  --amber:          #f4a261;
+  --amber-dark:     #e76f51;
+  --amber-glow:     rgba(244, 162, 97, 0.35);
+  --bg-base:        #0d0d0d;
+  --bg-surface:     #111111;
+  --bg-glass:       rgba(255, 255, 255, 0.06);
+  --border-subtle:  rgba(255, 255, 255, 0.09);
+  --text-primary:   #f9f9f9;
+  --text-muted:     #9ca3af;
+  --radius-sm:      8px;
+  --radius-md:      14px;
+  --radius-lg:      20px;
+  --transition:     0.25s ease;
+}
+
+/* ── Reset ─────────────────────────────────────── */
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -10,5 +30,26 @@ html, body, #root {
 }
 
 body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
 }
+
+/* ── Button base reset ─────────────────────────── */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ── Focus ring ────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+/* ── Scrollbar ─────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #111; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--amber); }

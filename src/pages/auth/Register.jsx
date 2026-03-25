@@ -4,6 +4,15 @@ import { Link } from "react-router-dom";
 import styles from "./Register.module.css";
 import BarberSpinner from "../../components/BarberSpinner";
 
+const icons = ["✂️","🪒","💈","🪮","✂️","🪒","💈","🪮","✂️"];
+
+const randomStyles = icons.map(() => ({
+  left: Math.random() * 100 + "%",
+  fontSize: (22 + Math.random() * 30) + "px",
+  animationDuration: (12 + Math.random() * 12) + "s",
+  animationDelay: (-Math.random() * 20) + "s"
+}));
+
 export default function Register(){
 
   const [form,setForm] = useState({
@@ -42,8 +51,6 @@ export default function Register(){
     setLoading(false);
   };
 
-  const icons = ["✂️","🪒","💈","🪮","✂️","🪒","💈","🪮","✂️"];
-
   return (
     <div className={styles.wrapper}>
 
@@ -53,12 +60,7 @@ export default function Register(){
           <span
             key={i}
             className={styles.icon}
-            style={{
-              left: Math.random()*100+"%",
-              fontSize: (22+Math.random()*30)+"px",
-              animationDuration: (12+Math.random()*12)+"s",
-              animationDelay: (-Math.random()*20)+"s"
-            }}
+            style={randomStyles[i]}
           >
             {ic}
           </span>

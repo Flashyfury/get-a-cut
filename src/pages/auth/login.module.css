@@ -1,155 +1,176 @@
-/* reset safe */
-* {
-  box-sizing: border-box;
-}
-
-/* wrapper full screen */
+/* ── Wrapper ─────────────────────────────────────────── */
 .wrapper {
   min-height: 100vh;
   width: 100%;
-  background: #F1FAFF; /* cloud wisp */
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  font-family: system-ui, -apple-system, sans-serif;
+  background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(244,162,97,0.18) 0%, transparent 70%),
+              linear-gradient(160deg, #0d0d0d 0%, #111 50%, #0f0f0f 100%);
 }
 
-/* floating barber icons */
+/* ── Floating icons bg ──────────────────────────────── */
 .bgIcons {
   position: absolute;
   inset: 0;
   z-index: 0;
+  pointer-events: none;
 }
 
-/* each icon */
 .bgIcons span {
   position: absolute;
   bottom: -60px;
-  font-size: 30px;
-  opacity: 0.25;
+  font-size: 28px;
+  opacity: 0.12;
   animation-name: floatUp;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-/* different columns + speeds */
-.bgIcons span:nth-child(1) { left: 8%;  animation-duration: 16s; }
-.bgIcons span:nth-child(2) { left: 22%; animation-duration: 20s; }
-.bgIcons span:nth-child(3) { left: 38%; animation-duration: 18s; }
-.bgIcons span:nth-child(4) { left: 55%; animation-duration: 22s; }
-.bgIcons span:nth-child(5) { left: 72%; animation-duration: 17s; }
-.bgIcons span:nth-child(6) { left: 88%; animation-duration: 24s; }
+.bgIcons span:nth-child(1) { left:  8%; animation-duration: 16s; }
+.bgIcons span:nth-child(2) { left: 22%; animation-duration: 21s; animation-delay: -4s; }
+.bgIcons span:nth-child(3) { left: 38%; animation-duration: 18s; animation-delay: -8s; }
+.bgIcons span:nth-child(4) { left: 56%; animation-duration: 23s; animation-delay: -2s; }
+.bgIcons span:nth-child(5) { left: 72%; animation-duration: 17s; animation-delay: -6s; }
+.bgIcons span:nth-child(6) { left: 88%; animation-duration: 25s; animation-delay: -12s; }
 
-/* float animation */
 @keyframes floatUp {
-  from {
-    transform: translateY(0) rotate(0deg);
-  }
-  to {
-    transform: translateY(-120vh) rotate(360deg);
-  }
+  from { transform: translateY(0) rotate(0deg); }
+  to   { transform: translateY(-120vh) rotate(360deg); }
 }
 
-/* login card */
+/* ── Card ───────────────────────────────────────────── */
 .card {
   width: 100%;
-  max-width: 420px;
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(12px);
-  padding: 38px;
-  border-radius: 18px;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+  max-width: 430px;
+  margin: 20px;
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  padding: 44px 40px;
+  border-radius: 24px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5),
+              inset 0 1px 0 rgba(255,255,255,0.07);
   position: relative;
   z-index: 2;
-  animation: cardPop 0.5s ease;
+  animation: cardPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  color: #f9f9f9;
 }
 
-/* card appear animation */
 @keyframes cardPop {
-  from {
-    opacity: 0;
-    transform: translateY(30px) scale(.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
+  from { opacity: 0; transform: translateY(32px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
 }
 
-/* title */
+/* ── Title ──────────────────────────────────────────── */
 .title {
   text-align: center;
-  margin-bottom: 24px;
-  font-size: 26px;
-  font-weight: 700;
-  color: #1f2937;
+  margin-bottom: 30px;
+  font-size: 1.75rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 30%, #f4a261 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* inputs */
+/* ── Inputs ─────────────────────────────────────────── */
 .input {
   width: 100%;
-  padding: 13px 14px;
-  border-radius: 10px;
-  border: 1px solid #d0d7de;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
   margin-bottom: 14px;
   font-size: 15px;
-  background: white;
+  font-family: inherit;
+  background: rgba(255,255,255,0.05);
+  color: #f9f9f9;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-/* password wrapper */
+.input::placeholder { color: #6b7280; }
+
+.input:focus {
+  outline: none;
+  border-color: #f4a261;
+  box-shadow: 0 0 0 3px rgba(244, 162, 97, 0.18);
+}
+
+/* ── Password row ───────────────────────────────────── */
 .passWrap {
   position: relative;
+  margin-bottom: 14px;
+}
+
+.passWrap .input {
+  margin-bottom: 0;
+  padding-right: 50px;
 }
 
 .eyeBtn {
   position: absolute;
-  right: 8px;
-  top: 6px;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
   border: none;
-  background: #eef2f7;
-  padding: 6px 9px;
+  background: transparent;
+  padding: 6px 8px;
   border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  transition: opacity 0.2s;
 }
+.eyeBtn:hover { opacity: 0.7; }
 
-/* button */
+/* ── Button ─────────────────────────────────────────── */
 .button {
   width: 100%;
   padding: 14px;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(135deg, #4da3ff, #1f4fff);
+  background: linear-gradient(135deg, #f4a261 0%, #e76f51 100%);
   color: white;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 15px;
+  font-family: inherit;
   cursor: pointer;
-  margin-top: 8px;
-  transition: transform .15s ease, box-shadow .15s ease;
+  margin-top: 10px;
+  letter-spacing: 0.02em;
+  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+  box-shadow: 0 4px 20px rgba(244, 162, 97, 0.3);
 }
 
 .button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(31,79,255,.25);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(244, 162, 97, 0.45);
 }
 
-/* links */
+.button:active { transform: translateY(0); }
+.button:disabled { opacity: 0.55; cursor: not-allowed; transform: none; }
+
+/* ── Links ──────────────────────────────────────────── */
 .switchText {
   text-align: center;
-  margin-top: 14px;
+  margin-top: 16px;
   font-size: 14px;
+  color: #9ca3af;
 }
 
-/* mobile responsive */
-@media (max-width: 480px) {
-  .card {
-    margin: 12px;
-    padding: 24px;
-    border-radius: 14px;
-  }
+.switchText a {
+  color: #f4a261;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+.switchText a:hover { opacity: 0.75; }
 
-  .title {
-    font-size: 22px;
-  }
+/* ── Mobile ─────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .card { padding: 32px 24px; border-radius: 18px; }
+  .title { font-size: 1.5rem; }
 }

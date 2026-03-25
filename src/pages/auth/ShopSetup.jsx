@@ -44,6 +44,7 @@ export default function ShopSetup({ onShopCreated }) {
         alert("Unable to find location");
       }
     } catch (err) {
+      console.error(err);
       alert("Error detecting location");
     }
   };
@@ -122,6 +123,7 @@ export default function ShopSetup({ onShopCreated }) {
         });
       }
     } catch (err) {
+      console.error(err);
       alert("Something went wrong");
     }
 
