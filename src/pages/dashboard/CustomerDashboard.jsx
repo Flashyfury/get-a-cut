@@ -11,6 +11,8 @@ export default function CustomerDashboard() {
   const navigate = useNavigate();
 
   const [shops, setShops] = useState([]);
+  const [filteredShops, setFilteredShops] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(null);
   const [myBookings, setMyBookings] = useState([]);
 
@@ -23,7 +25,24 @@ export default function CustomerDashboard() {
     const { data, error } = await supabase
       .from("shops")
       .select("*");
-    if (!error) setShops(data);
+    if (!error) {
+      setShops(data);
+      setFilteredShops(data);
+    }
+  };
+
+  const handleSearch = () => {
+    if (!searchQuery.trim()) {
+      setFilteredShops(shops);
+      return;
+    }
+    const lowerQuery = searchQuery.toLowerCase();
+    const filtered = shops.filter(shop => 
+      shop.shop_name?.toLowerCase().includes(lowerQuery) ||
+      shop.address?.toLowerCase().includes(lowerQuery) ||
+      shop.city?.toLowerCase().includes(lowerQuery)
+    );
+    setFilteredShops(filtered);
   };
 
   useEffect(() => {
@@ -80,6 +99,25 @@ export default function CustomerDashboard() {
           ? "Booking Confirmed ✅"
           : "Added to Queue ⏳"
       );
+      fetchMyBookings(user.id);
+    }
+  };
+
+  const handleDeleteBooking = async (bookingId) => {
+    if (!window.confirm("Are you sure you want to cancel this booking?")) return;
+    
+    const { data, error } = await supabase
+      .from("bookings")
+      .delete()
+      .eq("id", bookingId)
+      .eq("user_id", user.id)
+      .select();
+
+    if (error) {
+      alert(error.message);
+    } else if (data && data.length === 0) {
+      alert("Could not delete booking. You may not have permission to delete this.");
+    } else {
       fetchMyBookings(user.id);
     }
   };
@@ -145,8 +183,26 @@ export default function CustomerDashboard() {
       <section id="map-section" className={styles.mapSection}>
         <h2 className={styles.mapTitle}>Find Barbers Near You</h2>
         <p className={styles.mapSubtitle}>Tap a pin to see shop details and book your slot instantly.</p>
+        
+        <div className={styles.searchContainer}>
+          <input 
+            type="text" 
+            placeholder="Search by shop name, address or city..." 
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              if (e.target.value === "") {
+                setFilteredShops(shops);
+              }
+            }}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            className={styles.searchInput}
+          />
+          <button onClick={handleSearch} className={styles.searchBtn}>Search</button>
+        </div>
+
         <div className={styles.mapContainer}>
-          <BarberMap shops={shops} onBook={handleBooking} />
+          <BarberMap shops={filteredShops} onBook={handleBooking} />
         </div>
       </section>
 
@@ -164,7 +220,16 @@ export default function CustomerDashboard() {
           <div className={styles.bookingsGrid}>
             {myBookings.map((booking, i) => (
               <div key={i} className={styles.bookingCard}>
-                <div className={styles.bookingShopIcon}>💈</div>
+                <div className={styles.bookingCardHeader}>
+                  <div className={styles.bookingShopIcon}>💈</div>
+                  <button 
+                    className={styles.deleteBookingBtn} 
+                    onClick={() => handleDeleteBooking(booking.id)}
+                    title="Cancel Booking"
+                  >
+                    ✕
+                  </button>
+                </div>
                 <h4>{booking.shops?.shop_name}</h4>
                 <div className={styles.statusRow}>
                   <span className={styles.statusLabel}>Status:</span>

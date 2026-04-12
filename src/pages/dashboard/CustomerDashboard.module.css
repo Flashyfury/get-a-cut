@@ -226,6 +226,55 @@
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
+.searchContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.searchInput {
+  flex: 1;
+  padding: 12px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #f9f9f9;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.searchInput:focus {
+  outline: none;
+  border-color: #f4a261;
+  box-shadow: 0 0 0 3px rgba(244,162,97,0.15);
+}
+.searchInput::placeholder {
+  color: #6b7280;
+}
+
+.searchBtn {
+  padding: 12px 24px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #f4a261, #e76f51);
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(244,162,97,0.3);
+}
+.searchBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(244,162,97,0.45);
+}
+
 /* ── My Bookings Section ─────────────────────────────── */
 .myBookings {
   padding: 80px 6%;
@@ -264,6 +313,13 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
+.bookingCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
 .bookingCard h4 {
   font-size: 1.05rem;
   font-weight: 700;
@@ -273,7 +329,26 @@
 
 .bookingShopIcon {
   font-size: 22px;
-  margin-bottom: 12px;
+  margin: 0;
+}
+
+.deleteBookingBtn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteBookingBtn:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
 }
 
 .statusRow {
