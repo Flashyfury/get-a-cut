@@ -11,6 +11,7 @@ export default function OwnerDashboard() {
 
   const [_user, setUser] = useState(null);
   const [shop, setShop] = useState(null);
+  const [shopBookings, setShopBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -40,6 +41,37 @@ export default function OwnerDashboard() {
   useEffect(() => {
     initialize();
   }, []);
+
+  const fetchShopBookings = async (shopId) => {
+    const { data, error } = await supabase
+      .from("bookings")
+      .select("*")
+      .eq("shop_id", shopId)
+      .order("created_at", { ascending: false });
+    
+    if (!error && data) {
+      setShopBookings(data);
+    }
+  };
+
+  useEffect(() => {
+    if (shop) {
+      fetchShopBookings(shop.id);
+    }
+  }, [shop]);
+
+  const handleUpdateBookingStatus = async (bookingId, newStatus) => {
+    const { error } = await supabase
+      .from("bookings")
+      .update({ status: newStatus })
+      .eq("id", bookingId);
+      
+    if (error) {
+      alert("Error updating booking status");
+    } else {
+      fetchShopBookings(shop.id);
+    }
+  };
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -123,13 +155,13 @@ export default function OwnerDashboard() {
           <section className={styles.stats}>
             <div className={styles.card}>
               <div className={styles.cardIcon}>📅</div>
-              <h3>Today&apos;s Bookings</h3>
-              <p>--</p>
+              <h3>Total Bookings</h3>
+              <p>{shopBookings.length}</p>
             </div>
             <div className={styles.card}>
-              <div className={styles.cardIcon}>💰</div>
-              <h3>Monthly Revenue</h3>
-              <p>--</p>
+              <div className={styles.cardIcon}>⏳</div>
+              <h3>Pending Quotes</h3>
+              <p>{shopBookings.filter(b => b.status === "pending").length}</p>
             </div>
             <div className={styles.card}>
               <div className={styles.cardIcon}>👨‍🔧</div>
@@ -143,11 +175,65 @@ export default function OwnerDashboard() {
             </div>
           </section>
 
+          {/* Bookings Section */}
+          <section id="bookings-section" className={styles.myBookings}>
+            <h2>Shop Bookings</h2>
+            <p className={styles.sectionSubtitle}>Manage appointments and customer requests.</p>
+            
+            {shopBookings.length === 0 ? (
+              <div className={styles.emptyState}>
+                <div className={styles.emptyIcon}>✂️</div>
+                <p>No bookings yet for {shop.shop_name}!</p>
+              </div>
+            ) : (
+              <div className={styles.bookingsGrid}>
+                {shopBookings.map((booking) => (
+                  <div key={booking.id} className={styles.bookingCard}>
+                    <div className={styles.bookingCardHeader}>
+                      <div className={styles.bookingShopIcon}>🧑‍🦱</div>
+                      <span className={styles.statusLabel}>
+                        {booking.status === "accepted" ? (
+                          <span className={styles.badgeAccepted}>✅ Accepted</span>
+                        ) : booking.status === "completed" ? (
+                          <span className={styles.badgeCompleted}>🏁 Completed</span>
+                        ) : (
+                          <span className={styles.badgePending}>⏳ Pending</span>
+                        )}
+                      </span>
+                    </div>
+                    <h4>Customer ID: {booking.user_id?.substring(0, 8)}...</h4>
+                    <p className={styles.bookingDate}>
+                      {new Date(booking.created_at).toLocaleDateString()}
+                    </p>
+                    
+                    <div className={styles.bookingActions}>
+                      {booking.status === "pending" && (
+                        <button 
+                          className={styles.acceptBtn}
+                          onClick={() => handleUpdateBookingStatus(booking.id, "accepted")}
+                        >
+                          Accept
+                        </button>
+                      )}
+                      {booking.status === "accepted" && (
+                        <button 
+                          className={styles.completeBtn}
+                          onClick={() => handleUpdateBookingStatus(booking.id, "completed")}
+                        >
+                          Complete
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+
           {/* Actions */}
           <section className={styles.actions}>
             <button>➕ Add Barber</button>
             <button>✂️ Manage Services</button>
-            <button>📋 View Bookings</button>
             <button className={styles.logoutBtnMain} onClick={handleLogout}>
               🚪 Logout
             </button>
