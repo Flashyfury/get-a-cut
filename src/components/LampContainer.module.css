@@ -1,0 +1,387 @@
+/* ── Wrapper ─────────────────────────────────────────── */
+.wrapper {
+  min-height: 100vh;
+  width: 100%;
+  background: #060608;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  padding: 40px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  transition: background 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.wrapper.lightOn {
+  background: radial-gradient(circle at 35% 30%, #201710 0%, #060608 70%), #040405;
+}
+
+/* ── Interactive Lamp Area ─────────────────────────── */
+.lampArea {
+  position: relative;
+  height: 520px;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+/* Helper Prompt Instruction */
+.instruction {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  color: rgba(255, 255, 255, 0.25);
+  text-align: center;
+  pointer-events: none;
+  transition: color 0.6s, opacity 0.6s;
+}
+
+.lightOn .instruction {
+  color: rgba(244, 162, 97, 0.6);
+}
+
+/* ── The Lamp itself ────────────────────────────────── */
+.lamp {
+  position: relative;
+  width: 100%;
+  height: 440px;
+}
+
+/* Shade Container */
+.shadeContainer {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s ease;
+}
+
+.shadeContainer:hover {
+  transform: translateX(-50%) scale(1.02);
+}
+
+.shadeSvg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.shadeBody {
+  fill: #19191c;
+  stroke: #2c2c31;
+  stroke-width: 1.5;
+  transition: fill 0.6s, stroke 0.6s, filter 0.6s;
+}
+
+.lightOn .shadeBody {
+  fill: #26262b;
+  stroke: #f4a261;
+  filter: drop-shadow(0 0 4px rgba(244, 162, 97, 0.25));
+}
+
+.shadeCap {
+  fill: #0e0e10;
+}
+
+.shadeRim {
+  fill: #0e0e10;
+  transition: fill 0.6s, filter 0.6s;
+}
+
+.lightOn .shadeRim {
+  fill: #fffae8;
+  filter: drop-shadow(0 0 10px #f4a261);
+}
+
+/* Lightbulb under/inside shade */
+.bulb {
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: #27272a;
+  border-radius: 50%;
+  transition: background 0.5s, box-shadow 0.5s;
+  z-index: -1;
+}
+
+.lightOn .bulb {
+  background: #fffbe8;
+  box-shadow: 0 0 35px 15px rgba(254, 240, 138, 0.85),
+              0 0 80px 30px rgba(244, 162, 97, 0.45);
+}
+
+/* ── Pull String ───────────────────────────────────── */
+.pullString {
+  position: absolute;
+  top: 70px;
+  left: calc(50% + 22px);
+  width: 30px;
+  height: 160px;
+  cursor: pointer;
+  z-index: 12;
+  transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1);
+  /* Expand click target */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stringLine {
+  width: 1.5px;
+  height: 110px;
+  background: linear-gradient(to bottom, #3f3f46, #71717a);
+  transition: background 0.5s;
+}
+
+.lightOn .stringLine {
+  background: linear-gradient(to bottom, #71717a, #a1a1aa);
+}
+
+.stringHandle {
+  width: 8px;
+  height: 18px;
+  background: linear-gradient(135deg, #855f21, #5c4113);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.5s, box-shadow 0.5s, transform 0.2s;
+  animation: handlePulse 2.5s infinite ease-in-out;
+}
+
+.lightOn .stringHandle {
+  animation: none;
+  background: linear-gradient(135deg, #ffd175, #c29544);
+  box-shadow: 0 0 10px rgba(244, 162, 97, 0.8),
+              0 0 20px rgba(244, 162, 97, 0.4);
+}
+
+.pullString:hover .stringHandle {
+  transform: scale(1.15);
+}
+
+/* Pull action physics animation */
+.pulling {
+  transform: translateY(24px);
+}
+
+@keyframes handlePulse {
+  0% {
+    box-shadow: 0 0 0px transparent;
+    background: linear-gradient(135deg, #855f21, #5c4113);
+  }
+  50% {
+    box-shadow: 0 0 8px rgba(244, 162, 97, 0.35);
+    background: linear-gradient(135deg, #b28334, #73531b);
+  }
+  100% {
+    box-shadow: 0 0 0px transparent;
+    background: linear-gradient(135deg, #855f21, #5c4113);
+  }
+}
+
+/* ── Pole & Base ────────────────────────────────────── */
+.pole {
+  position: absolute;
+  top: 70px;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  background: linear-gradient(90deg, #131316, #2d2d34 30%, #44444c 50%, #1a1a1e 80%);
+  z-index: 1;
+}
+
+.base {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 110px;
+  height: 12px;
+  background: linear-gradient(to bottom, #27272a, #0f0f11);
+  border-radius: 6px 6px 2px 2px;
+  border: 1.5px solid #3f3f46;
+  border-bottom: none;
+  z-index: 2;
+}
+
+/* ── Light Cone ─────────────────────────────────────── */
+.lightCone {
+  position: absolute;
+  top: 70px;
+  left: 50%;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
+  width: 650px;
+  height: 480px;
+  background: linear-gradient(
+    180deg,
+    rgba(254, 240, 138, 0.3) 0%,
+    rgba(254, 240, 138, 0.08) 50%,
+    rgba(254, 240, 138, 0) 100%
+  );
+  clip-path: polygon(42% 0%, 58% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.65s ease;
+  opacity: 0;
+  z-index: 3;
+}
+
+.lightOn .lightCone {
+  transform: translateX(-50%) scaleY(1);
+  opacity: 1;
+}
+
+/* ── Content Card Wrapper ──────────────────────────── */
+.contentArea {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 15;
+}
+
+.lightOn .contentArea {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cardWrapper {
+  transition: filter 0.6s, box-shadow 0.6s;
+}
+
+.lightOn .cardWrapper {
+  filter: drop-shadow(0 15px 40px rgba(244, 162, 97, 0.08));
+}
+
+/* ── Responsive Styling ────────────────────────────── */
+
+/* Desktop layout large screens */
+@media (min-width: 1024px) {
+  .wrapper {
+    gap: 100px;
+  }
+}
+
+/* Tablet / Landscape mobile layout */
+@media (max-width: 900px) {
+  .wrapper {
+    gap: 40px;
+    padding: 30px;
+  }
+  .lightCone {
+    width: 500px;
+  }
+}
+
+/* Mobile vertical stacking */
+@media (max-width: 767px) {
+  .wrapper {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 16px;
+    overflow-y: auto;
+  }
+  
+  .wrapper.lightOn {
+    background: radial-gradient(circle at 50% 150px, #201710 0%, #060608 75%), #040405;
+  }
+
+  .lampArea {
+    height: 250px;
+    width: 100%;
+    max-width: 200px;
+    justify-content: flex-start;
+    padding-top: 25px;
+  }
+
+  .instruction {
+    font-size: 9px;
+    top: 5px;
+  }
+
+  .lamp {
+    height: 210px;
+    margin-top: 15px;
+  }
+
+  .shadeContainer {
+    top: 10px;
+    width: 90px;
+  }
+
+  .bulb {
+    top: 28px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .pullString {
+    top: 40px;
+    left: calc(50% + 15px);
+    height: 100px;
+  }
+
+  .stringLine {
+    height: 60px;
+  }
+
+  .stringHandle {
+    width: 6px;
+    height: 13px;
+  }
+
+  .pole {
+    top: 40px;
+    width: 3.5px;
+    bottom: 5px;
+  }
+
+  .base {
+    width: 70px;
+    height: 8px;
+    border-radius: 4px 4px 1px 1px;
+  }
+
+  .lightCone {
+    top: 40px;
+    width: 340px;
+    height: 480px;
+    clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+  }
+
+  .contentArea {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    transform: translateY(16px);
+  }
+  
+  .cardWrapper {
+    width: 100%;
+    max-width: 420px;
+  }
+}

@@ -3,6 +3,7 @@ import { supabase } from "../../lib/supabase";
 import { Link } from "react-router-dom";
 import styles from "./Register.module.css";
 import BarberSpinner from "../../components/BarberSpinner";
+import LampContainer from "../../components/LampContainer";
 
 const icons = ["✂️","🪒","💈","🪮","✂️","🪒","💈","🪮","✂️"];
 
@@ -52,7 +53,7 @@ export default function Register(){
   };
 
   return (
-    <div className={styles.wrapper}>
+    <LampContainer>
 
       {/* floating barber tools */}
       <div className={styles.bg}>
@@ -111,6 +112,7 @@ export default function Register(){
         </div>
 
       </div>
-    </div>
+    </LampContainer>
   );
 }
+

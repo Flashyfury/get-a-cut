@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginWithRole } from "../../lib/loginWithRole";
 import BarberSpinner from "../../components/BarberSpinner";
+import LampContainer from "../../components/LampContainer";
 import styles from "./login.module.css";
 
 export default function LoginCustomer() {
@@ -36,8 +37,7 @@ export default function LoginCustomer() {
   };
 
   return (
-    <div className={styles.wrapper}>
-
+    <LampContainer>
       {/* floating barber icons background */}
       <div className={styles.bgIcons}>
         <span>✂️</span>
@@ -101,6 +101,7 @@ export default function LoginCustomer() {
         </p>
 
       </form>
-    </div>
+    </LampContainer>
   );
 }
+
